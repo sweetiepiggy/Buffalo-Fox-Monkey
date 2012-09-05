@@ -19,14 +19,9 @@
     along with Buffalo Fox Monkey ; if not, see <http://www.gnu.org/licenses/>.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical" >
-
-	<TextView
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:text="@string/hello" />
-</LinearLayout>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:id="@+id/about"
+		android:icon="@android:drawable/ic_dialog_info"
+		android:title="@string/about" />
+</menu>
 
