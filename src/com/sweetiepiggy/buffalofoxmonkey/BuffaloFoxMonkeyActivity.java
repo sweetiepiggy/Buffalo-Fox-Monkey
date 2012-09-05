@@ -113,7 +113,7 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		}
 	}
 
-	class RandomTask extends AsyncTask<Void, Void, Void>
+	class RandomTask extends AsyncTask<Void, Character, Void>
 	{
 		private String b;
 		private String f;
@@ -124,35 +124,39 @@ public class BuffaloFoxMonkeyActivity extends Activity
 			DbAdapter dbHelper = new DbAdapter();
 			dbHelper.open(getApplicationContext());
 			b = dbHelper.random_b();
+			publishProgress('b');
 			f = dbHelper.random_f();
+			publishProgress('f');
 			m = dbHelper.random_m();
+			publishProgress('m');
 			dbHelper.close();
 
 			return null;
 		}
 
 		@Override
-		protected void onPostExecute(Void result) {
-			TextView b_view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.b));
-			TextView f_view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.f));
-			TextView m_view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.m));
-
-			b_view.setText(b);
-			f_view.setText(f);
-			m_view.setText(m);
-
-			b_view.setVisibility(View.VISIBLE);
-			b_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
-
-			f_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
-			f_view.setVisibility(View.VISIBLE);
-
-			m_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
-			m_view.setVisibility(View.VISIBLE);
+		protected void onProgressUpdate(Character... values) {
+			TextView view;
+			String word;
+			if (values[0].equals('b')) {
+				view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.b));
+				word = b;
+			} else if (values[0].equals('f')) {
+				view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.f));
+				word = f;
+			} else if (values[0].equals('m')) {
+				view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.m));
+				word = m;
+			} else {
+				return;
+			}
+			view.setText(word);
+			view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
+			view.setVisibility(View.VISIBLE);
 		}
 
 		@Override
-		protected void onProgressUpdate(Void... values) {
+		protected void onPostExecute(Void result) {
 		}
 	}
 
