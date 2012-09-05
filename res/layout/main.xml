@@ -40,7 +40,27 @@
 		android:id="@+id/m"
 		android:gravity="center"
 		style="@android:style/TextAppearance.Large"
+		android:paddingBottom="30sp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+		<Button
+			android:id="@+id/try_again_button"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:layout_weight="1"
+			android:drawableLeft="@android:drawable/ic_menu_rotate"
+			android:text="@string/try_again" />
+		<Button
+			android:id="@+id/tweet_button"
+			android:layout_width="wrap_content"
+			android:layout_height="fill_parent"
+			android:drawableLeft="@drawable/twitter"
+			android:text="@string/tweet_this" />
+	</LinearLayout>
 </LinearLayout>
 

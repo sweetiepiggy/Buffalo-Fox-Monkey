@@ -23,7 +23,8 @@
 	<string name="app_name">Buffalo Fox Monkey</string>
 	<string name="about">About</string>
 
-	<string name="hello">Hello World, BuffaloFoxMonkeyActivity!</string>
+	<string name="try_again">try again</string>
+	<string name="tweet_this">tweet this</string>
 
 	<string name="license">
 Copyright (C) 2012 Sweetie Piggy Apps sweetiepiggyapps@gmail.com\n\n
