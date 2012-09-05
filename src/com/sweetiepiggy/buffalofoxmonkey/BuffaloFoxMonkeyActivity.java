@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 public class BuffaloFoxMonkeyActivity extends Activity
 {
+	static final String BFM_TWITTER_ADDR = "@BFMradio";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -42,6 +43,7 @@ public class BuffaloFoxMonkeyActivity extends Activity
 
 		random_bfm();
 		init_try_again_button();
+		init_tweet_button();
 	}
 
 	private void init_try_again_button()
@@ -53,6 +55,30 @@ public class BuffaloFoxMonkeyActivity extends Activity
 				random_bfm();
 			}
 		});
+	}
+
+	private void init_tweet_button()
+	{
+		Button tweet_button = (Button) findViewById(R.id.tweet_button);
+
+		tweet_button.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				String b = ((TextView) findViewById(R.id.b)).getText().toString();
+				String f = ((TextView) findViewById(R.id.f)).getText().toString();
+				String m = ((TextView) findViewById(R.id.m)).getText().toString();
+				String tweet_msg = BFM_TWITTER_ADDR + " " + b + " " + f + " " + m;
+				send_tweet(tweet_msg);
+			}
+		});
+	}
+
+	private void send_tweet(String tweet_msg)
+	{
+		Intent tweet_intent = new Intent(Intent.ACTION_SEND);
+		tweet_intent.putExtra(Intent.EXTRA_TEXT, tweet_msg);
+		tweet_intent.setType("text/plain");
+		startActivity(Intent.createChooser(tweet_intent,
+					getResources().getString(R.string.send_tweet)));
 	}
 
 	private void random_bfm()
