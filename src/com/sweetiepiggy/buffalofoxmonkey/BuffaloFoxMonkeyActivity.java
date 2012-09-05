@@ -25,6 +25,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 public class BuffaloFoxMonkeyActivity extends Activity
 {
@@ -35,6 +38,47 @@ public class BuffaloFoxMonkeyActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+
+		random_bfm();
+	}
+
+	public void random_bfm() {
+		TextView b_view = ((TextView) findViewById(R.id.b));
+		TextView f_view = ((TextView) findViewById(R.id.f));
+		TextView m_view = ((TextView) findViewById(R.id.m));
+
+		b_view.setVisibility(View.INVISIBLE);
+		f_view.setVisibility(View.INVISIBLE);
+		m_view.setVisibility(View.INVISIBLE);
+
+		String b = random_word("b");
+		String f = random_word("f");
+		String m = random_word("m");
+
+		b_view.setText(b);
+		f_view.setText(f);
+		m_view.setText(m);
+
+		b_view.setVisibility(View.VISIBLE);
+		b_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
+
+		f_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
+		f_view.setVisibility(View.VISIBLE);
+
+		m_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
+		m_view.setVisibility(View.VISIBLE);
+	}
+
+	public String random_word(String table) {
+		if (table.equals("b")) {
+			return "buffalo";
+		} else if (table.equals("f")) {
+			return "fox";
+		} else if (table.equals("m")) {
+			return "monkey";
+		} else {
+			return table;
+		}
 	}
 
 	@Override
