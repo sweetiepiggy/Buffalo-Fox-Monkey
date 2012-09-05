@@ -27,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class BuffaloFoxMonkeyActivity extends Activity
@@ -40,9 +41,22 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		setContentView(R.layout.main);
 
 		random_bfm();
+		init_try_again_button();
 	}
 
-	public void random_bfm() {
+	private void init_try_again_button()
+	{
+		Button try_again_button = (Button) findViewById(R.id.try_again_button);
+
+		try_again_button.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				random_bfm();
+			}
+		});
+	}
+
+	private void random_bfm()
+	{
 		TextView b_view = ((TextView) findViewById(R.id.b));
 		TextView f_view = ((TextView) findViewById(R.id.f));
 		TextView m_view = ((TextView) findViewById(R.id.m));
