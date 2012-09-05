@@ -21,6 +21,7 @@ package com.sweetiepiggy.buffalofoxmonkey;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 public class BuffaloFoxMonkeyActivity extends Activity
 {
 	static final String BFM_TWITTER_ADDR = "@BFMradio";
+	private AsyncTask mTask;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -83,34 +85,14 @@ public class BuffaloFoxMonkeyActivity extends Activity
 
 	private void random_bfm()
 	{
-		TextView b_view = ((TextView) findViewById(R.id.b));
-		TextView f_view = ((TextView) findViewById(R.id.f));
-		TextView m_view = ((TextView) findViewById(R.id.m));
+		((TextView) findViewById(R.id.b)).setVisibility(View.INVISIBLE);
+		((TextView) findViewById(R.id.f)).setVisibility(View.INVISIBLE);
+		((TextView) findViewById(R.id.m)).setVisibility(View.INVISIBLE);
 
-		b_view.setVisibility(View.INVISIBLE);
-		f_view.setVisibility(View.INVISIBLE);
-		m_view.setVisibility(View.INVISIBLE);
-
-		DbAdapter dbHelper = new DbAdapter();
-		dbHelper.open(this);
-		String b = dbHelper.random_b();
-		String f = dbHelper.random_f();
-		String m = dbHelper.random_m();
-		dbHelper.close();
-
-		b_view.setText(b);
-		f_view.setText(f);
-		m_view.setText(m);
-
-		b_view.setVisibility(View.VISIBLE);
-		b_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
-
-		f_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
-		f_view.setVisibility(View.VISIBLE);
-
-		m_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
-		m_view.setVisibility(View.VISIBLE);
+		RandomTask task = new RandomTask();
+		task.execute();
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,5 +112,49 @@ public class BuffaloFoxMonkeyActivity extends Activity
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+	class RandomTask extends AsyncTask<Void, Void, Void>
+	{
+		private String b;
+		private String f;
+		private String m;
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			DbAdapter dbHelper = new DbAdapter();
+			dbHelper.open(getApplicationContext());
+			b = dbHelper.random_b();
+			f = dbHelper.random_f();
+			m = dbHelper.random_m();
+			dbHelper.close();
+
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			TextView b_view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.b));
+			TextView f_view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.f));
+			TextView m_view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.m));
+
+			b_view.setText(b);
+			f_view.setText(f);
+			m_view.setText(m);
+
+			b_view.setVisibility(View.VISIBLE);
+			b_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
+
+			f_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
+			f_view.setVisibility(View.VISIBLE);
+
+			m_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
+			m_view.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		protected void onProgressUpdate(Void... values) {
+		}
+	}
+
 }
 
