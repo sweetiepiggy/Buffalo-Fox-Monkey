@@ -20,7 +20,7 @@
 -->
 
 <resources>
-	<string name="app_name">BuffaloFoxMonkey</string>
+	<string name="app_name">Buffalo Fox Monkey</string>
 	<string name="about">About</string>
 
 	<string name="hello">Hello World, BuffaloFoxMonkeyActivity!</string>

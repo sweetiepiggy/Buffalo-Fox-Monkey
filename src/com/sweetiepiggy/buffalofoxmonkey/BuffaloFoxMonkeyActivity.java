@@ -51,9 +51,12 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		f_view.setVisibility(View.INVISIBLE);
 		m_view.setVisibility(View.INVISIBLE);
 
-		String b = random_word("b");
-		String f = random_word("f");
-		String m = random_word("m");
+		DbAdapter dbHelper = new DbAdapter();
+		dbHelper.open(this);
+		String b = dbHelper.random_b();
+		String f = dbHelper.random_f();
+		String m = dbHelper.random_m();
+		dbHelper.close();
 
 		b_view.setText(b);
 		f_view.setText(f);
@@ -67,18 +70,6 @@ public class BuffaloFoxMonkeyActivity extends Activity
 
 		m_view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
 		m_view.setVisibility(View.VISIBLE);
-	}
-
-	public String random_word(String table) {
-		if (table.equals("b")) {
-			return "buffalo";
-		} else if (table.equals("f")) {
-			return "fox";
-		} else if (table.equals("m")) {
-			return "monkey";
-		} else {
-			return table;
-		}
 	}
 
 	@Override
