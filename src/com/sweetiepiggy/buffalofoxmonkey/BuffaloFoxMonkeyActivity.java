@@ -58,15 +58,8 @@ public class BuffaloFoxMonkeyActivity extends Activity
 			public void onClick(View v) {
 				v.setVisibility(View.INVISIBLE);
 
-				DbAdapter dbHelper = new DbAdapter();
-				dbHelper.open(getApplicationContext());
-				String word = dbHelper.random_word(first_letter);
-				dbHelper.close();
-
-				((TextView) v).setText(word);
-				v.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
-						android.R.anim.fade_in));
-				v.setVisibility(View.VISIBLE);
+				RandomTask task = new RandomTask(first_letter);
+				task.execute();
 			}
 		});
 	}
@@ -141,18 +134,49 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		private String b;
 		private String f;
 		private String m;
+		private boolean update_b;
+		private boolean update_f;
+		private boolean update_m;
+
+		RandomTask() {
+			update_b = true;
+			update_f = true;
+			update_m = true;
+		}
+
+		RandomTask(char first_letter) {
+			update_b = false;
+			update_f = false;
+			update_m = false;
+
+			switch (first_letter) {
+			case 'b':
+				update_b = true; break;
+			case 'f':
+				update_f = true; break;
+			case 'm':
+				update_m = true; break;
+			default:
+			}
+		}
 
 		@Override
 		protected Void doInBackground(Void... params) {
 			DbAdapter dbHelper = new DbAdapter();
 			dbHelper.open(getApplicationContext());
-			b = dbHelper.random_word('b');
-			publishProgress('b');
-			f = dbHelper.random_word('f');
-			publishProgress('f');
-			m = dbHelper.random_word('m');
-			publishProgress('m');
-			dbHelper.close();
+			if (update_b) {
+				b = dbHelper.random_word('b');
+				publishProgress('b');
+			}
+			if (update_f) {
+				f = dbHelper.random_word('f');
+				publishProgress('f');
+			}
+			if (update_m) {
+				m = dbHelper.random_word('m');
+				publishProgress('m');
+				dbHelper.close();
+			}
 
 			return null;
 		}
@@ -161,18 +185,25 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		protected void onProgressUpdate(Character... values) {
 			TextView view;
 			String word;
-			if (values[0].equals('b')) {
+
+			char first_letter = values[0];
+			switch (first_letter) {
+			case 'b':
 				view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.b));
 				word = b;
-			} else if (values[0].equals('f')) {
+				break;
+			case 'f':
 				view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.f));
 				word = f;
-			} else if (values[0].equals('m')) {
+				break;
+			case 'm':
 				view = ((TextView) BuffaloFoxMonkeyActivity.this.findViewById(R.id.m));
 				word = m;
-			} else {
+				break;
+			default:
 				return;
 			}
+
 			view.setText(word);
 			view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
 			view.setVisibility(View.VISIBLE);
