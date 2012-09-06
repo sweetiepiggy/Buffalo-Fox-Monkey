@@ -67,7 +67,7 @@ public class BuffaloFoxMonkeyActivity extends Activity
 				String b = ((TextView) findViewById(R.id.b)).getText().toString();
 				String f = ((TextView) findViewById(R.id.f)).getText().toString();
 				String m = ((TextView) findViewById(R.id.m)).getText().toString();
-				String tweet_msg = BFM_TWITTER_ADDR + " " + b + " " + f + " " + m;
+				String tweet_msg = b + " ... " + f + " ... " + m + " ... "  + BFM_TWITTER_ADDR;
 				send_tweet(tweet_msg);
 			}
 		});
