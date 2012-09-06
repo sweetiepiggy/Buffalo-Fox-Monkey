@@ -153,22 +153,21 @@ public class DbAdapter
 		mDbHelper.close();
 	}
 
-	public String random_b()
+	public String random_word(char first_letter)
 	{
-		return random_word(DATABASE_TABLE_B);
+		switch (first_letter) {
+		case 'b':
+			return random_word(DATABASE_TABLE_B);
+		case 'f':
+			return random_word(DATABASE_TABLE_F);
+		case 'm':
+			return random_word(DATABASE_TABLE_M);
+		default:
+			return "";
+		}
 	}
 
-	public String random_f()
-	{
-		return random_word(DATABASE_TABLE_F);
-	}
-
-	public String random_m()
-	{
-		return random_word(DATABASE_TABLE_M);
-	}
-
-	public String random_word(String table)
+	private String random_word(String table)
 	{
 		String ret = "";
 		Cursor c = mDbHelper.mDb.query(table, new String[] {KEY_WORD},

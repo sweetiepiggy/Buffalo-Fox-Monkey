@@ -43,8 +43,32 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		setContentView(R.layout.main);
 
 		random_bfm();
+		init_word_button(R.id.b, 'b');
+		init_word_button(R.id.f, 'f');
+		init_word_button(R.id.m, 'm');
 		init_try_again_button();
 		init_tweet_button();
+	}
+
+	private void init_word_button(int id, final char first_letter)
+	{
+		TextView v = (TextView) findViewById(id);
+
+		v.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				v.setVisibility(View.INVISIBLE);
+
+				DbAdapter dbHelper = new DbAdapter();
+				dbHelper.open(getApplicationContext());
+				String word = dbHelper.random_word(first_letter);
+				dbHelper.close();
+
+				((TextView) v).setText(word);
+				v.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
+						android.R.anim.fade_in));
+				v.setVisibility(View.VISIBLE);
+			}
+		});
 	}
 
 	private void init_try_again_button()
@@ -122,11 +146,11 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		protected Void doInBackground(Void... params) {
 			DbAdapter dbHelper = new DbAdapter();
 			dbHelper.open(getApplicationContext());
-			b = dbHelper.random_b();
+			b = dbHelper.random_word('b');
 			publishProgress('b');
-			f = dbHelper.random_f();
+			f = dbHelper.random_word('f');
 			publishProgress('f');
-			m = dbHelper.random_m();
+			m = dbHelper.random_word('m');
 			publishProgress('m');
 			dbHelper.close();
 
