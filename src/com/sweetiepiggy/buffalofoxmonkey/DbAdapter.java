@@ -31,15 +31,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
 public class DbAdapter
 {
 	public static final String KEY_WORD = "word";
+	public static final String KEY_PERCENTILE = "percentile";
 
 	private DatabaseHelper mDbHelper;
 
 	private static final String DATABASE_PATH = "/data/data/com.sweetiepiggy.buffalofoxmonkey/databases/";
-	private static final String DATABASE_NAME = "wordlist.db";
+	private static final String DATABASE_NAME = "wordlist2.db";
 	private static final String DATABASE_TABLE_B = "b";
 	private static final String DATABASE_TABLE_F = "f";
 	private static final String DATABASE_TABLE_M = "m";
@@ -170,8 +170,10 @@ public class DbAdapter
 	private String random_word(String table)
 	{
 		String ret = "";
+		int random_perc = 10 + (int)(Math.random() * 90);
 		Cursor c = mDbHelper.mDb.query(table, new String[] {KEY_WORD},
-				null, null, null, null, "random()", "1");
+				KEY_PERCENTILE + " <= " + Integer.toString(random_perc),
+				null, null, null, "random()", "1");
 		if (c.moveToFirst()) {
 			ret = c.getString(0);
 		}
