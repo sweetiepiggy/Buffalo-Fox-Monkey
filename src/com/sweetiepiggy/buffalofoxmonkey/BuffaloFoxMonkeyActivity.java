@@ -34,7 +34,6 @@ import android.widget.TextView;
 public class BuffaloFoxMonkeyActivity extends Activity
 {
 	static final String BFM_TWITTER_ADDR = "@BFMradio";
-	private AsyncTask mTask;
 
 	/** Called when the activity is first created. */
 	@Override
