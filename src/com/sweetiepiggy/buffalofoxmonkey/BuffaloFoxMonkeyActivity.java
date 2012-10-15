@@ -21,6 +21,7 @@ package com.sweetiepiggy.buffalofoxmonkey;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 
 public class BuffaloFoxMonkeyActivity extends Activity
 {
+	private static final String SOURCE_URL = "https://github.com/sweetiepiggy/Buffalo-Fox-Monkey";
 	static final String BFM_TWITTER_ADDR = "@BFMradio";
 
 	/** Called when the activity is first created. */
@@ -123,6 +125,11 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		case R.id.about:
 			Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
 			startActivity(intent);
+			return true;
+		case R.id.source:
+			intent = new Intent(Intent.ACTION_VIEW);
+			intent.setDataAndType(Uri.parse(SOURCE_URL), "text/html");
+			startActivity(Intent.createChooser(intent, getResources().getString(R.string.open_browser)));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

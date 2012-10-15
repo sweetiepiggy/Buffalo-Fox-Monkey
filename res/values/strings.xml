@@ -28,6 +28,9 @@
 
 	<string name="send_tweet">Send tweet</string>
 
+	<string name="view_source">View Source</string>
+	<string name="open_browser">Open Web Browser</string>
+
 	<string name="license">
 Copyright (C) 2012 Sweetie Piggy Apps sweetiepiggyapps@gmail.com\n\n
 Buffalo Fox Monkey is free software; you can redistribute it and/or modify
