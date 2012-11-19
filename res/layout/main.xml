@@ -28,6 +28,7 @@
 		android:id="@+id/b"
 		android:gravity="center"
 		style="@android:style/TextAppearance.Large"
+		android:paddingTop="10sp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
 	<TextView
@@ -40,7 +41,7 @@
 		android:id="@+id/m"
 		android:gravity="center"
 		style="@android:style/TextAppearance.Large"
-		android:paddingBottom="30sp"
+		android:paddingBottom="10sp"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
 
