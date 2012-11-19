@@ -97,8 +97,7 @@ public class BuffaloFoxMonkeyActivity extends Activity
 		Intent tweet_intent = new Intent(Intent.ACTION_SEND);
 		tweet_intent.putExtra(Intent.EXTRA_TEXT, tweet_msg);
 		tweet_intent.setType("text/plain");
-		startActivity(Intent.createChooser(tweet_intent,
-					getResources().getString(R.string.send_tweet)));
+		startActivity(Intent.createChooser(tweet_intent, null));
 	}
 
 	private void random_bfm()
