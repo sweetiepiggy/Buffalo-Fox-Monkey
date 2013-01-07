@@ -30,6 +30,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 
 public class DbAdapter
 {
@@ -38,7 +39,7 @@ public class DbAdapter
 
 	private DatabaseHelper mDbHelper;
 
-	private static final String DATABASE_PATH = "/data/data/com.sweetiepiggy.buffalofoxmonkey/databases/";
+	private static final String DATABASE_PATH = Environment.getDataDirectory() + "/data/com.sweetiepiggy.buffalofoxmonkey/databases/";
 	private static final String DATABASE_NAME = "wordlist2.db";
 	private static final String DATABASE_TABLE_B = "b";
 	private static final String DATABASE_TABLE_F = "f";
